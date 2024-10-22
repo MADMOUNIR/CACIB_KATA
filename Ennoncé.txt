@@ -1,0 +1,46 @@
+
+
+Comme échangé, tu trouveras ci-dessous le kata à réaliser.
+
+Le candidat doit réaliser un projet de Web App comme suit :
+
+
+Coté backend un server en C# qui définit un API REST avec les endpoints suivantes :
+
+o   /api/v1/auth pour valider l’accès (on accepte user/password = admin/admin) et on retourne un token d’accès valable 1h => OK
+
+o   /api/v1/services avec un GET on return la liste de services à disposition (en dur dans le code, vous pouvez retourner 3 service S1,S2,S3) => OK
+
+o   /api/v1/services/{service_name} avec un GET on return la liste de possible commande que un service en particulier peut exécuter (e.g. ACTION1, ACTION2…)
+
+o   /api/v1/services/{service_name} avec un POST on exécute la commande passé dans un json (ACTION[i])
+
+§  en simulant un appel au service en question dans un Task dedié qui ne se termine que quand l’action sera terminé (on la fige à 3min)
+
+§  on retourne immédiatement un UUID de référence pendant que le Task continue de s’executer
+
+§  le Task genere un texte random (qui correspond aux Logs de l’application executé) qui est memorisé en ram dans un stream (1 ecriture random sur le stream tous les second pendant 3 minute)
+
+o   /api/v1/ws une websocket où faire des demande d’access de log produit par les job avec un UUID particulier ( on lit donc le stream et on  retourne au client le random texte)
+
+·         Coté Frontend fait en nodejs avec React :
+
+o   Au lancement, on trouve une page de login/password
+
+o   Une fois entrée et enregistré le token de session, on trouve côté gauche un menu qui liste les services existent
+
+o   Quand on clique sur un service, on retrouve les ACTIONS que on peut déclencher
+
+o   Si on déclenche une action, la websocket ouvre un flux pour récupérer le texte généré par l’application et l’affiché dans la page
+
+·         On exécute le server et le frontend en utilisant un fichier docker compose (note : le tester sur un environnement clean du setting de développement originaire)
+
+·         Le projet se trouvera dans un repo github
+
+·         Deadline du projet : 22 Octobre
+
+·         Pas de chatGTP ou similaire
+
+·         Oui au code inspirée (mais pas copié) de github, stack overflow, forum, blog…
+
+

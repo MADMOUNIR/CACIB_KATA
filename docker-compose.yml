@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  # Service for the .NET API
+  api:
+    build:
+      context: ./Backend/KATA_CACIB   # The path to your API project
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"  # Map the host's port 5000 to the container's port 5000
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - JWT_SECRET="madaoui_kata_cacib_20154&Suped_secret_145!:"  # Pass your JWT secret key here    
+      - ASPNETCORE_URLS=http://+:5000
+  # Service for the React front-end
+  frontend:
+    build:
+      context: ./Frontend/service-front-app  # The path to your React project
+      dockerfile: Dockerfile
+    ports:
+      - "3001:80"  # Map the host's port 3000 to the container's port 80 (nginx)
+    environment:
+      - REACT_APP_URL_BACKEND=https://localhost:7001/api/v1  # Set the API URL for the React app
+      - REACT_APP_TOKEN_NAME=KATA_CACIB_TOKEN
+  
